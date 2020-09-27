@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import fetchApiProducts from '../../services/fetchApiProducts'
 import { v4 as uuidv4 } from 'uuid';
 import Loader from '../common/Loader';
-import { Container, ProductContainer, ProductImage, ProductsWrapper } from './styledComponents';
+import { Container, ProductContainer, ProductDetails, ProductImage, ProductsListContainer } from './styledComponents';
 export default function ShoppingProducts() {
 
     const [products, setProducts] = useState([])
@@ -40,17 +40,18 @@ export default function ShoppingProducts() {
                 Quantity,
                 Tax } = product
             return <ProductContainer key={() => uuidv4()}>
-                <ProductImage src={Image}></ProductImage>
-                <p>{Name}</p>
-                <p>{Price}</p>
-                <p>{Description}</p>
-                <p>{Category}</p>
-                <p>{Type}</p>
-
-                <p>{Manufacturer}</p>
-                <p>{Seller}</p>
-                <p>{Quantity}</p>
-                <p>{Tax}</p>
+                <ProductImage src={Image} />
+                <ProductDetails>
+                    <span><strong>Name:   </strong>{Name}</span>
+                    <span><strong>Price:   </strong>{Price}</span>
+                    <span><strong>Description:   </strong>{Description}</span>
+                    <span><strong>Category:   </strong>{Category}</span>
+                    <span><strong>Type:   </strong>{Type}</span>
+                    <span><strong>Manufacturer:   </strong>{Manufacturer}</span>
+                    <span><strong>Seller:   </strong>{Seller}</span>
+                    <span><strong>Quantity:   </strong>{Quantity}</span>
+                    <span><strong>Tax:   </strong>{Tax}</span>
+                </ProductDetails>
 
             </ProductContainer>
         })
@@ -66,6 +67,6 @@ export default function ShoppingProducts() {
 
     return (
         <>
-            <Container>{isLoading ? <Loader /> : <ProductsWrapper>{renderProducts()}</ProductsWrapper>}</Container>
+            {isLoading ? <Container><Loader /></Container> : <ProductsListContainer>{renderProducts()}</ProductsListContainer>}
         </>)
 }
